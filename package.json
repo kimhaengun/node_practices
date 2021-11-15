@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "connect-route": "^0.1.5"
+  }
+}
