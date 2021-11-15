@@ -21,16 +21,30 @@ app.use(connetRoute(function(router){
         resp.end('<h1>guestbook</h1>');
     });
 
-    router.get("/board",function(req,resp){ // /board 주소 요청이 들어왔을 경우
+    router.get("/board/:no",function(req,resp){ // /board 주소 요청이 들어왔을 경우
         resp.writeHead(200,{
             'Content-Type' : 'text/html'
         });
-        resp.end('<h1>board</h1>');
+        resp.end(`<h1>board : ${req.params.no}</h1>`); // req.params 로 바로 받을 수 있음.
     });
 
     router.get("/user",function(req,resp){ // /user 주소 요청이 들어왔을 경우
+        //ex) http://localhost:8080/user?no=4
+        console.log(req._parsedUrl.query); //no=4
 
-    });    
+        req.query = {};
+        params = (req._parsedUrl.query || '').split('&'); //url 파싱하기
+        params.forEach(function(param){
+            tokens = param.split('='); //[no,4]
+            req.query[tokens[0]] = tokens[1];
+        });
+
+        resp.writeHead(200, {
+            'Content-Type': 'text/html'
+        });
+        resp.end(`<h1>User No: ${req.query.no}</h1>`);        
+    });
+        
 }));
 
 
