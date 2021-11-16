@@ -1,10 +1,12 @@
 
 const model = require('../models/emaillist');
 module.exports = {
-    index: function(req, res){
-        const result = module.findAll();
+    index: async function(req, res){
+        const results = await model.findAll();
+        console.log(results);
+
         res.render('index',{
-            list :result || []    //없을 수 있으니 빈배열로 에러 안뜨게
+            list :results || []    //없을 수 있으니 빈배열로 에러 안뜨게
         });
     }
 }
