@@ -27,4 +27,21 @@ router.route("/join").post(function(req, res){
   res.redirect("/");
 });
 
+router.route("/api").get(function(req, res){
+  const vo={
+    no:10,
+    name:'뚤리',
+    email:'dooly@naver.com',
+    gender:'male'
+  };
+
+  // res.writeHead(200,{
+  //   'Content-Type' : 'application/json'
+  // });
+  // res.end(JSON.stringify(vo));
+  //  =
+  res.send(vo); //send() 안에 객체를 보내면됨.
+});
+
+
 module.exports = router;
