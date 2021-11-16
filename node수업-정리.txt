@@ -60,3 +60,6 @@
     4.app04 : based on connect, serve-static, connect-route : npm package
     
 8.(helloweb-ex02)express 프레임워크 기반의 웹 애플리케이션 만들기
+[helloweb-ex02] $ npm i express
+[helloweb-ex02] $ npm i ejs
+[helloweb-ex02] $ npm i -D nodaemon
