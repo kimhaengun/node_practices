@@ -5,6 +5,7 @@ const express = require('express');
 //-----------------------------------------------
 const mainRouter = require('./routes/main');
 const helloRouter = require('./routes/hello');
+const userRouter = require('./routes/user');
 
 const port = 8080;
 
@@ -16,8 +17,8 @@ const application = express()
     .use(express.static(path.join(__dirname, 'public')))
 
     //2.reqest body parser  / body 데이터 형식
-    .use(express.urlencoded({extends: true})) //extends : true --> application/x-www-form-urlencoded 형식
-    .use(express.json) //json으로 넘오는 데이터 형식을 body에 application/json
+    .use(express.urlencoded({extended: true})) //extended : true --> application/x-www-form-urlencoded 형식
+    .use(express.json()) //json으로 넘오는 데이터 형식을 body에 application/json
 
     //3.view engine setup
     .set('views',path.join(__dirname,'views'))
@@ -25,16 +26,17 @@ const application = express()
 
     //4.request router
     .all('*', function(req,res,next){
-        req.locals.req = req;
+        res.locals.req = req;
         res.locals.res = res;
         next(); //그래야 다음 route handler mapping 으로 넘어감 / intercepter (인증에 주로 사용)
     })
     .use('/', mainRouter) //Router는 컨트롤러 함수에 연결시켜주는 역할
     .use('/hello', helloRouter)
+    .use('/user',userRouter);
 
 //Server Setup
 http.createServer(application)
-    .on('listenung', function(){
+    .on('listening', function(){
         console.info(`http server runs on ${port}`);
     })
     //에러 났을 경우
