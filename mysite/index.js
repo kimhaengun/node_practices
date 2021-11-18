@@ -12,7 +12,7 @@ dotenv.config({
 });
 
 //2.Application Routers
-const applicationRouter = require('../routes') //디렉토리명만 적어주면 자동으로 index.js로 들어감
+const {applicationRouter} = require('./routes') //디렉토리명만 적어주면 자동으로 index.js로 들어감
 
 //3.Logger
 
