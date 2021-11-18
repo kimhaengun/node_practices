@@ -9,6 +9,7 @@ router.route('/joinsuccess').get(controllers.joinsucess);
 router.route('/login').get(controllers.login);
 router.route('/login').post(controllers._login);
 router.route('/logout').get(controllers.logout);
+router.route('/update').get(controllers.update);
 
 
 module.exports=router;

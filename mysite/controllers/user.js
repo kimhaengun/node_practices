@@ -59,5 +59,21 @@ module.exports={
         }catch(e){
             next();
         }
+    },
+    update: async function(req, res, next){
+        try{
+           const user = await models.User.findOne({
+                attributes: ['no','email','name','gender'],
+                where:{
+                    no:req.session.authUser.no
+                }
+            });
+            res.render('user/update',{user});  //user.으로 사용할수 잇슴 user.email, user.gender
+        }catch(e){
+            next();
+        }
+    },
+    __update: async function(req, res, next){
+
     }
 }

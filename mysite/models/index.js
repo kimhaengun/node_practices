@@ -17,6 +17,7 @@ User.sync({
     alter: process.env.TABLE_ALTER_ALWAYS === 'true'
 });
 
+
 // Guestbook.synce({
 
 // });
