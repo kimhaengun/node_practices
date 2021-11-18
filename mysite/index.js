@@ -10,6 +10,9 @@ const dotenv = require('dotenv');
 dotenv.config({
     path: path.join(__dirname,'config/app.env')
 });
+dotenv.config({
+    path: path.join(__dirname,'config/db.env')
+});
 
 //2.Application Routers
 const {applicationRouter} = require('./routes') //디렉토리명만 적어주면 자동으로 index.js로 들어감
