@@ -1,4 +1,4 @@
-// const errorRouter = require('./error');
+const errorRouter = require('./error');
 const applicationRouter = {
     setup: function(application){
 
@@ -13,8 +13,8 @@ const applicationRouter = {
                 .use("/",require('./main'))
                 .use("/user",require('./user'))
 
-                // .use(errorRouter.error404)
-                // .use(errorRouter.error500)
+                .use(errorRouter.error404)
+                .use(errorRouter.error500)
                 .siteTitle = 'MySite';
     }
 }
