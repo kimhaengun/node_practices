@@ -13,8 +13,10 @@ dotenv.config({
 
 //2.Application Routers
 const {applicationRouter} = require('./routes') //디렉토리명만 적어주면 자동으로 index.js로 들어감
+const {SIGTERM} = require('constants')
 
 //3.Logger
+const logger = require('./logging')
 
 //4.Application Setup / 미들웨어 막기
 const application = express()
@@ -38,18 +40,18 @@ const application = express()
     //Server Setup
 http.createServer(application)
     .on('listening', function(){
-        console.info(`http server runs on ${process.env.PORT}`);
+        logger.info(`http server runs on ${process.env.PORT}`);
     })
     //에러 났을 경우
     .on('error', function(error){
         switch(error.code){
             case 'EACCESS':
-                console.error(`${process.env.PORT} requires privileges `);
+                logger.error(`${process.env.PORT} requires privileges `);
                 // 1 --> 비정상 종료 / 0 --> 정상 종료
                 process.exit(1);
                 break;
             case 'EADDRINUSE':
-                console.error(`${process.env.PORT} 이미 사용중 입니다. `);
+                logger.error(`${process.env.PORT} 이미 사용중 입니다. `);
                 // 1 --> 비정상 종료 / 0 --> 정상 종료
                 process.exit(1);
                 break;
