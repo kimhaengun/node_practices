@@ -2,6 +2,8 @@ const http = require('http');
 //자바 String 처럼 임포트 설정 필요 없이 사용가능.
 const path = require('path');
 const express = require('express');
+//세션
+const session = require('express-session');
 //환경 설정
 const dotenv = require('dotenv');
 //-----------------------------------------------
@@ -19,19 +21,28 @@ const {applicationRouter} = require('./routes') //디렉토리명만 적어주�
 const {SIGTERM} = require('constants')
 
 //3.Logger
-const logger = require('./logging')
+const logger = require('./logging');
+
 
 //4.Application Setup / 미들웨어 막기
 const application = express()
-    //4-1.static resources
-    //__dirname --> index가 시작하는 위치
-    .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCES_DIRECTORY)))
-
+    //4-1.Session Environment
+    .use(session({
+        secret: "mysite-session",
+        resave: false
+    }))
     //4-2.reqest body parser  / body 데이터 형식
     .use(express.urlencoded({extended: true})) //extended : true --> application/x-www-form-urlencoded 형식
     .use(express.json()) //json으로 넘오는 데이터 형식을 body에 application/json
 
-    //4-3.view engine setup
+    //4-3 Multipart
+
+    //4-4.static resources
+    //__dirname --> index가 시작하는 위치
+    .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCES_DIRECTORY)))
+
+
+    //4-5.view engine setup
     .set('views',path.join(__dirname,'views'))
     .set('view engine','ejs')
 
