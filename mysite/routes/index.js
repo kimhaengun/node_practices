@@ -12,7 +12,10 @@ const applicationRouter = {
     
                 .use("/",require('./main'))
                 .use("/user",require('./user'))
-
+                .use('/guestbook', require('./guestbook'))
+                .use('/api/guestbook', require('./guestbook-api'))
+                .use('/gallery',require('./gallery'))
+                
                 .use(errorRouter.error404)
                 .use(errorRouter.error500)
                 .siteTitle = 'MySite';

@@ -6,6 +6,7 @@ const express = require('express');
 const session = require('express-session');
 //환경 설정
 const dotenv = require('dotenv');
+const multer = require('multer');
 //-----------------------------------------------
 
 //1.Enviroment Variables
@@ -36,11 +37,13 @@ const application = express()
     .use(express.json()) //json으로 넘오는 데이터 형식을 body에 application/json
 
     //4-3 Multipart
+    .use(multer({
+        dest: path.join(__dirname, process.env.MULTER_TEMPORARY_STORE)
+    }).single('file'))
 
     //4-4.static resources
     //__dirname --> index가 시작하는 위치
     .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCES_DIRECTORY)))
-
 
     //4-5.view engine setup
     .set('views',path.join(__dirname,'views'))
